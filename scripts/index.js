@@ -4,8 +4,21 @@ const giftbox = document.getElementById('merrywrap');
 const canvasC = document.getElementById('c');
 
 const config = {
-  birthdate: 'June 27, 2024',
-  name: 'Nayab'
+  name: 'Nayab',
+  get birthdate() {
+    const currentYear = new Date().getFullYear();
+    const birthMonth = 6; // July (0-based index, so July is 6)
+    const birthDay = 26;
+
+    let nextBirthdate = new Date(currentYear, birthMonth, birthDay);
+
+    // If the birthdate has already passed this year, set it to next year
+    if (nextBirthdate < new Date()) {
+      nextBirthdate = new Date(currentYear + 1, birthMonth, birthDay);
+    }
+
+    return nextBirthdate.toISOString().split('T')[0]; // Return as YYYY-MM-DD
+  }
 };
 
 function hideEverything() {
